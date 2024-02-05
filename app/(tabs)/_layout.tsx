@@ -21,7 +21,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name='two'
+        name='mail'
         options={{
           title: 'Mail',
           tabBarIcon: ({ color }) => <Mail color={color} />,
