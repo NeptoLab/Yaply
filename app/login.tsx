@@ -53,7 +53,10 @@ const LoginScreen = () => {
 
                 {emailOrPhoneEntered && errors.password && <Text color="red">This field is required</Text>}
 
-                <Button>Login</Button>
+                
+                <Form.Trigger asChild>
+                    <Button>Login</Button>
+                </Form.Trigger>
             </Form>
         );
     };

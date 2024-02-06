@@ -1,17 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FlatList } from 'react-native';
 import { Check } from '@tamagui/lucide-icons'
 import { Input, Button, Form, Label, View, YStack, XStack, Text, Checkbox, ListItem, Avatar } from 'tamagui';
 import supabase from 'utils/supabase';
+import ChatContext from 'contexts/ChatContext';
+import { useRouter } from 'expo-router';
+
+type CreateChatForm = {
+  name: string;
+  members: any[];
+};
 
 const CreateChat = () => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm<CreateChatForm>();
   const [contacts, setContacts] = useState<any[]>([]);
+  const { fetchChats } = useContext(ChatContext);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchContacts = async () => {
-      const { data, error } = await supabase.from('contacts').select('*, profile:profiles!contacts_contact_user_id_fkey(*)');
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (!user) {
+        router.push('/login');
+        return;
+      }
+
+      const { data, error } = await supabase.from('contacts').select('*, profile:profiles!contacts_contact_user_id_fkey(*)').eq('user_id', user.id);
       if (error) {
         console.error(error);
       } else {
@@ -23,8 +39,35 @@ const CreateChat = () => {
     fetchContacts();
   }, []);
 
-  const onSubmit = async (data: any) => {
-    await supabase.from('chats').insert([{ name: data.name }]);
+  const onSubmit = async (formData: CreateChatForm) => {
+    const { data, error } = await supabase
+      .from('chats')
+      .insert([{ name: formData.name }])
+      .select()
+      .single();
+
+    if (error) {
+      console.log('error creating chat:', error);
+      return;
+    }
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      console.error('no user found');
+      return;
+    }
+
+    await supabase.from('members').insert([
+      { chat_id: data.id, user_id: user.id },
+      ...formData.members.map(
+        (member) => ({ chat_id: data.id, user_id: member.contact_user_id })
+      )
+    ]);
+
+    fetchChats();
+
+    router.replace(`/chats/${data.id}`);
   };
 
   return (
@@ -51,7 +94,7 @@ const CreateChat = () => {
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
-          <YStack my="$4">
+          contacts.length > 0 ? <YStack my="$4">
             <Label htmlFor="name">
               Contacts
             </Label>
@@ -81,7 +124,7 @@ const CreateChat = () => {
                 </ListItem>
               }}
             />
-          </YStack>
+          </YStack> : <></>
         )}
         name="members"
         defaultValue={[]}

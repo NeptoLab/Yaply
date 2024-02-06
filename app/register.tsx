@@ -74,7 +74,9 @@ const RegisterScreen = () => {
             />
             {errors.confirmPassword && <Text color="red">{errors.confirmPassword.message}</Text>}
 
-            <Button>Register</Button>
+            <Form.Trigger asChild>
+                <Button>Register</Button>
+            </Form.Trigger>
         </Form>
     );
 };

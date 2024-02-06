@@ -16,8 +16,8 @@ const AddChatButton = () => {
 const ChatLayout = () => {
   return (
     <ChatProvider>
-      <Stack screenOptions={{ headerRight: () =>  <AddChatButton />}}>
-        <Stack.Screen name="index" options={{ title: 'Chats' }} />
+      <Stack>
+        <Stack.Screen name="index" options={{ title: 'Chats', headerRight: () =>  <AddChatButton /> }} />
         <Stack.Screen name="[id]" options={{ title: '' }} />
         <Stack.Screen name="create" options={{ title: 'Create Chat' }} />
       </Stack>
