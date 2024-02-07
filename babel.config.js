@@ -20,6 +20,7 @@ module.exports = function (api) {
             'utils': './utils',
             'components': './components',
             'contexts': './contexts',
+            'hooks': './hooks',
           },
         },
       ]
