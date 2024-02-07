@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {FlatList} from 'react-native';
-import {Button, ListItem, YStack} from 'tamagui';
+import {ListItem, YStack} from 'tamagui';
 import {useRouter, useGlobalSearchParams} from 'expo-router';
-import ChatContext from '../contexts/ChatContext';
+import useChats from 'hooks/useChats';
 
 const ChatList: React.FC = () => {
   const router = useRouter();
-  const { chats } = useContext(ChatContext);
+  const { chats } = useChats();
 
   const { id: chatId } = useGlobalSearchParams();
 

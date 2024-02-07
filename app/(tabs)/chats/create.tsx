@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { mutate } from 'swr';
 import { useForm, Controller } from 'react-hook-form';
 import { FlatList } from 'react-native';
 import { Check } from '@tamagui/lucide-icons'
-import { Input, Button, Form, Label, View, YStack, XStack, Text, Checkbox, ListItem, Avatar } from 'tamagui';
+import { Input, Button, Form, Label, YStack, Text, Checkbox, ListItem, Avatar } from 'tamagui';
 import supabase from 'utils/supabase';
-import ChatContext from 'contexts/ChatContext';
 import { useRouter } from 'expo-router';
 
 type CreateChatForm = {
@@ -15,7 +15,6 @@ type CreateChatForm = {
 const CreateChat = () => {
   const { control, handleSubmit } = useForm<CreateChatForm>();
   const [contacts, setContacts] = useState<any[]>([]);
-  const { fetchChats } = useContext(ChatContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -65,7 +64,7 @@ const CreateChat = () => {
       )
     ]);
 
-    fetchChats();
+    mutate('/api/chats');
 
     router.replace(`/chats/${data.id}`);
   };

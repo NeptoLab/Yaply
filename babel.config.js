@@ -19,7 +19,6 @@ module.exports = function (api) {
           alias: {
             'utils': './utils',
             'components': './components',
-            'contexts': './contexts',
             'hooks': './hooks',
           },
         },

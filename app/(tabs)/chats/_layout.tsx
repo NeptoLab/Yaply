@@ -1,6 +1,5 @@
 import { Link, Stack } from 'expo-router';
 import { ListPlus } from '@tamagui/lucide-icons';
-import { ChatProvider } from 'components/ChatProvider';
 import { Button } from 'tamagui';
 
 const AddChatButton = () => {
@@ -15,13 +14,11 @@ const AddChatButton = () => {
 
 const ChatLayout = () => {
   return (
-    <ChatProvider>
-      <Stack>
-        <Stack.Screen name="index" options={{ title: 'Chats', headerRight: () =>  <AddChatButton /> }} />
-        <Stack.Screen name="[id]" options={{ title: '' }} />
-        <Stack.Screen name="create" options={{ title: 'Create Chat' }} />
-      </Stack>
-    </ChatProvider>
+    <Stack>
+      <Stack.Screen name="index" options={{ title: 'Chats', headerRight: () =>  <AddChatButton /> }} />
+      <Stack.Screen name="[id]" options={{ title: '' }} />
+      <Stack.Screen name="create" options={{ title: 'Create Chat' }} />
+    </Stack>
   )
 }
 
