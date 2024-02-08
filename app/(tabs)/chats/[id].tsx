@@ -46,7 +46,7 @@ const ChatScreen: React.FC = () => {
     //     console.log('handleForceScroll', forceScroll.current);
     // };
 
-    const handleKeyPress = (e: any) => {
+    const handleKeyPress = (e) => {
         if (e.shiftKey) {
             return;
         }
@@ -56,7 +56,7 @@ const ChatScreen: React.FC = () => {
         }
     };
 
-    const renderItem = ({ item }: { item: any }) => (
+    const renderItem = ({ item }) => (
         <Paragraph
             backgroundColor="$gray4"
             br="$2"
@@ -70,7 +70,7 @@ const ChatScreen: React.FC = () => {
         </Paragraph>
     );
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data) => {
         await handleSendMessage({ text: data.message, chat_id: chatId });
         setValue('message', '');
         inputRef.current?.focus();

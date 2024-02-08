@@ -8,13 +8,8 @@ import useUser from 'hooks/useUser';
 import useContacts from 'hooks/useContacts';
 import useCreateChat from 'hooks/useCreateChat';
 
-type CreateChatForm = {
-  name: string;
-  members: any[];
-};
-
 const CreateChat = () => {
-  const { control, handleSubmit } = useForm<CreateChatForm>();
+  const { control, handleSubmit } = useForm();
   const { user, isLoading } = useUser();
   const { contacts } = useContacts();
   const { trigger: handleCreateChat } = useCreateChat();
@@ -27,8 +22,8 @@ const CreateChat = () => {
       }
   }, [user, isLoading]);
 
-  const onSubmit = async (formData: any) => {
-    const chat = await handleCreateChat(formData);
+  const onSubmit = async (data) => {
+    const chat = await handleCreateChat(data);
 
     router.replace(`/chats/${chat.id}`);
   };

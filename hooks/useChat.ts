@@ -27,7 +27,7 @@ const useChat = (chatId, { onMessage }) => {
             .on(
                 'postgres_changes',
                 { event: 'INSERT', schema: 'public', table: 'messages' },
-                (payload: { new: any }) => {
+                (payload: { new }) => {
                     onMessage(payload.new);
                 }
             )
