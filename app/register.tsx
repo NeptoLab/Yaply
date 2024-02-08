@@ -1,17 +1,18 @@
-import supabase from 'utils/supabase';
-import { useState } from 'react';
+import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'expo-router';
 import { Button, Input, Stack, Text, ToggleGroup as Group, Label, Form, YStack } from 'tamagui';
+import useAuth from 'hooks/useAuth';
 
 const RegisterScreen = () => {
     const { control, handleSubmit, formState: { errors }, watch } = useForm();
     const router = useRouter();
+    const auth = useAuth();
     const password = watch('password');
 
     const onSubmit = async (data) => {
         try {
-            const { data: { user }, error } = await supabase.auth.signUp(
+            const { data: { user }, error } = await auth.signUp(
                 { email: data.email, password: data.password }
             );
             if (error) {

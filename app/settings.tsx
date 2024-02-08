@@ -1,45 +1,27 @@
-import supabase from 'utils/supabase';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'expo-router';
 import { Button, Input, Text, Avatar, Label, Form, YStack } from 'tamagui';
 import useUser from 'hooks/useUser';
 import { useEffect } from 'react';
 import useProfile from 'hooks/useProfile';
+import useUpdateProfile from 'hooks/useUpdateProfile';
 
 const SettingsScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter();
-    const { user } = useUser();
+    const { user, isLoading } = useUser();
     const { profile } = useProfile(user?.id);
+    const { trigger: handleUpdateProfile} = useUpdateProfile();
 
     useEffect(() => {
-        if (user) {
+        if (!isLoading && !user) {
             router.push('/login');
         }
-    }, []);
+    }, [isLoading, user]);
 
     const onSubmit = async (data) => {
-        try {
-            if (!user) {
-                throw new Error('User not found');
-            }
-
-            const { data: profile, error } = await supabase.from('profiles').upsert({
-                id: user.id,
-                ...data
-            });
-            if (error) {
-                console.error(error);
-                // Handle login error
-            } else {
-                console.log(profile);
-                router.push('/');
-            }
-        } catch (error) {
-            console.error(error);
-            // Handle login error
-        }
-    };
+        await handleUpdateProfile({ id: user?.id, data });
+    }
 
     return (
         <Form onSubmit={handleSubmit(onSubmit)} maw={400} w="100%" p="$4" f={1} jc="center" als="center" gap="$4">

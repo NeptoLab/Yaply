@@ -3,20 +3,20 @@ import { FlatList } from 'react-native';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { YStack, XStack, Paragraph, Input, Button } from 'tamagui';
-import supabase from 'utils/supabase';
 import { Send } from '@tamagui/lucide-icons';
 import ChatView from 'components/ChatView';
-
-type Message = {
-    id: string;
-    text: string;
-};
+import useChat from 'hooks/useChat';
+import useSendMessage from 'hooks/useSendMessage';
 
 const ChatScreen: React.FC = () => {
     const { handleSubmit, control, setValue } = useForm();
     const { id: chatId } = useLocalSearchParams();
+    const [ messages, setMessages ] = useState<any[]>([]);
+    const { trigger: handleSendMessage } = useSendMessage(chatId);
+    const { chat } = useChat(chatId, { 
+        onMessage: (message) => setMessages((prevMessages) => [...prevMessages, message]),
+    });
     const navigation = useNavigation();
-    const [messages, setMessages] = useState<Message[]>([]);
     const chatRef = React.useRef<FlatList>(null);
     const inputRef = React.useRef<Input>(null);
 
@@ -24,31 +24,14 @@ const ChatScreen: React.FC = () => {
         chatRef.current?.scrollToEnd();
     };
 
-    const fetchMessages = async () => {
-        try {
-            const { data: chat } = await supabase
-                .from('chats')
-                .select('name')
-                .eq('id', chatId)
-                .single();
-
-            if (chat) {
-                navigation.setOptions({
-                    title: chat.name,
-                });
-            }
-
-            const { data } = await supabase
-                .from('messages')
-                .select()
-                .eq('chat_id', chatId)
-                .order('created_at', { ascending: false })
-                .limit(15);
-            data && setMessages(data.reverse());
-        } catch (error) {
-            console.error('Error fetching messages:', error);
+    useEffect(() => {
+        if (chat) {
+            navigation.setOptions({
+                title: chat.name,
+            });
+            setMessages(chat.messages);
         }
-    };
+    }, [chat]);
 
     // const handleScroll = (event) => {
     //     const y = event.nativeEvent.contentOffset.y;
@@ -73,26 +56,7 @@ const ChatScreen: React.FC = () => {
         }
     };
 
-    useEffect(() => {
-        const subscription = supabase
-            .channel(`${chatId}`)
-            .on(
-                'postgres_changes',
-                { event: 'INSERT', schema: 'public', table: 'messages' },
-                (payload: { new: Message }) => {
-                    setMessages((prevMessages) => [...prevMessages, payload.new]);
-                }
-            )
-            .subscribe();
-
-        fetchMessages();
-
-        return () => {
-            subscription.unsubscribe();
-        };
-    }, []);
-
-    const renderItem = ({ item }: { item: Message }) => (
+    const renderItem = ({ item }: { item: any }) => (
         <Paragraph
             backgroundColor="$gray4"
             br="$2"
@@ -107,17 +71,9 @@ const ChatScreen: React.FC = () => {
     );
 
     const onSubmit = async (data: any) => {
-        const { error } = await supabase
-            .from('messages')
-            .insert([{ text: data.message, chat_id: chatId }])
-            .single();
-
-        if (error) {
-            console.error('Error sending message:', error);
-        } else {
-            setValue('message', '');
-            inputRef.current?.focus();
-        }
+        await handleSendMessage({ text: data.message, chat_id: chatId });
+        setValue('message', '');
+        inputRef.current?.focus();
     };
 
     return (

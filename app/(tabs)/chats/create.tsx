@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { mutate } from 'swr';
+import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FlatList } from 'react-native';
 import { Check } from '@tamagui/lucide-icons'
 import { Input, Button, Form, Label, YStack, Text, Checkbox, ListItem, Avatar } from 'tamagui';
-import supabase from 'utils/supabase';
 import { useRouter } from 'expo-router';
+import useUser from 'hooks/useUser';
+import useContacts from 'hooks/useContacts';
+import useCreateChat from 'hooks/useCreateChat';
 
 type CreateChatForm = {
   name: string;
@@ -14,59 +15,22 @@ type CreateChatForm = {
 
 const CreateChat = () => {
   const { control, handleSubmit } = useForm<CreateChatForm>();
-  const [contacts, setContacts] = useState<any[]>([]);
+  const { user, isLoading } = useUser();
+  const { contacts } = useContacts();
+  const { trigger: handleCreateChat } = useCreateChat();
   const router = useRouter();
 
   useEffect(() => {
-    const fetchContacts = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-
-      if (!user) {
+      if (!isLoading && !user) {
         router.push('/login');
         return;
       }
+  }, [user, isLoading]);
 
-      const { data, error } = await supabase.from('contacts').select('*, profile:profiles!contacts_contact_user_id_fkey(*)').eq('user_id', user.id);
-      if (error) {
-        console.error(error);
-      } else {
-        console.log('contacts', data);
-        setContacts(data);
-      }
-    };
+  const onSubmit = async (formData: any) => {
+    const chat = await handleCreateChat(formData);
 
-    fetchContacts();
-  }, []);
-
-  const onSubmit = async (formData: CreateChatForm) => {
-    const { data, error } = await supabase
-      .from('chats')
-      .insert([{ name: formData.name }])
-      .select()
-      .single();
-
-    if (error) {
-      console.log('error creating chat:', error);
-      return;
-    }
-
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      console.error('no user found');
-      return;
-    }
-
-    await supabase.from('members').insert([
-      { chat_id: data.id, user_id: user.id },
-      ...formData.members.map(
-        (member) => ({ chat_id: data.id, user_id: member.contact_user_id })
-      )
-    ]);
-
-    mutate('/api/chats');
-
-    router.replace(`/chats/${data.id}`);
+    router.replace(`/chats/${chat.id}`);
   };
 
   return (
@@ -93,7 +57,7 @@ const CreateChat = () => {
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
-          contacts.length > 0 ? <YStack my="$4">
+          contacts && contacts.length > 0 ? <YStack my="$4">
             <Label htmlFor="name">
               Contacts
             </Label>
@@ -113,13 +77,13 @@ const CreateChat = () => {
                     </Checkbox.Indicator>
                   </Checkbox>
                   <Avatar circular size="$4">
-                    <Avatar.Image
-                      accessibilityLabel={item.name}
-                      src={item.avatar}
-                    />
+                    {item.profile?.avatar && <Avatar.Image
+                      accessibilityLabel={item.profile.name || ''}
+                      src={item.profile.avatar}
+                    />}
                     <Avatar.Fallback backgroundColor="$blue10" />
                   </Avatar>
-                  <Text f={1}>{item.profile.name}</Text>
+                  <Text f={1}>{item.profile?.name || ''}</Text>
                 </ListItem>
               }}
             />
@@ -148,9 +112,11 @@ const CreateChat = () => {
         defaultValue=""
       /> */}
 
-      <Button onPress={handleSubmit(onSubmit)}>
-        Create Chat
-      </Button>
+      <Form.Trigger asChild>
+        <Button>
+          Create Chat
+        </Button>
+      </Form.Trigger>
     </Form>
   );
 };
