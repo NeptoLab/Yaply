@@ -7,15 +7,16 @@ import { Send } from '@tamagui/lucide-icons';
 import ChatView from 'components/ChatView';
 import useChat from 'hooks/useChat';
 import useSendMessage from 'hooks/useSendMessage';
+import { Message } from 'types/models';
 
 const ChatScreen: React.FC = () => {
     const { handleSubmit, control, setValue } = useForm();
     const { id: chatId } = useLocalSearchParams();
-    const [ messages, setMessages ] = useState<any[]>([]);
-    const { trigger: handleSendMessage } = useSendMessage(chatId);
-    const { chat } = useChat(chatId, { 
+    const { chat } = useChat(chatId, {
         onMessage: (message) => setMessages((prevMessages) => [...prevMessages, message]),
     });
+    const [ messages, setMessages ] = useState<Message[]>([]);
+    const { trigger: handleSendMessage } = useSendMessage(chatId);
     const navigation = useNavigation();
     const chatRef = React.useRef<FlatList>(null);
     const inputRef = React.useRef<Input>(null);
