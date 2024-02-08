@@ -5,14 +5,20 @@ import supabase from 'utils/supabase';
 const useChat = (chatId, { onMessage }) => {
     const { data, isLoading, error } = useSWR(
         chatId ? ['/api/profile', chatId] : null,
-        async ([, chatId]) => (
-            await supabase
+        async () => {
+            const { data, error } = await supabase
                 .from('chats')
                 .select('name, messages(*)')
                 .order("created_at", { foreignTable: 'messages', ascending: true })
                 .eq('id', chatId)
-                .single()
-        )
+                .single();
+
+            if (error) {
+                throw error;
+            }
+
+            return data;
+        }
     );
     
     useEffect(() => {
@@ -33,7 +39,7 @@ const useChat = (chatId, { onMessage }) => {
     }, []);
 
     return {
-        chat: data?.data,
+        chat: data,
         isLoading,
         error
     };
