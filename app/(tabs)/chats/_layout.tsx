@@ -1,24 +1,18 @@
-import { Link, Stack } from 'expo-router';
-import { ListPlus } from '@tamagui/lucide-icons';
+import { Stack } from 'expo-router';
+import ChatView from 'components/ChatView';
+import { UserPlus } from '@tamagui/lucide-icons';
 import { Button } from 'tamagui';
-
-const AddChatButton = () => {
-  return (
-    <Link href="/chats/create">
-      <Button p="$2" m="$4">
-        <ListPlus />
-      </Button>
-    </Link>
-  )
-};
+import AddMemberDialog from 'components/AddMemberDialog';
 
 const ChatLayout = () => {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ title: 'Chats', headerRight: () =>  <AddChatButton /> }} />
-      <Stack.Screen name="[id]" options={{ title: '' }} />
-      <Stack.Screen name="create" options={{ title: 'Create Chat' }} />
-    </Stack>
+    <ChatView>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="[id]" options={{ title: '', headerRight: () => <AddMemberDialog><Button mr="$2" icon={<UserPlus size="$1" />} chromeless /></AddMemberDialog> }} />
+        <Stack.Screen name="create" options={{ title: 'Create Chat' }} />
+      </Stack>
+    </ChatView>
   )
 }
 

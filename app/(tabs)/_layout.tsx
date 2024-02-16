@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
 import { MessageSquare, Mail, Bell } from '@tamagui/lucide-icons'
+import AddChatButton from 'components/AddChatButton';
 
 export default function TabLayout() {
   return (
@@ -8,7 +9,6 @@ export default function TabLayout() {
         name='index'
         options={{
           title: 'Activity',
-          headerShown: false,
           tabBarIcon: ({ color }) => <Bell color={color} />
         }}
       />
@@ -16,8 +16,8 @@ export default function TabLayout() {
         name='chats'
         options={{
           title: 'Chats',
-          headerShown: false,
-          tabBarIcon: ({ color }) => <MessageSquare color={color} />
+          tabBarIcon: ({ color }) => <MessageSquare color={color} />,
+          headerRight: () => <AddChatButton />
         }}
       />
       <Tabs.Screen

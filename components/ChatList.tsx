@@ -11,7 +11,7 @@ const ChatList: React.FC = () => {
   const { id: chatId } = useGlobalSearchParams();
 
   return (
-    <YStack bg="$background" f={1} {...chatId && { display: 'none' } } $gtMd={{ maw: 400, display: 'flex' }}>
+    <YStack bg="$background" f={1} {...((chatId) && { display: 'none' }) } $gtMd={{ maw: 400, display: 'flex' }}>
         <FlatList
           data={chats}
           keyExtractor={(item) => item.id.toString()}

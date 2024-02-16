@@ -4,12 +4,10 @@ import { useGlobalSearchParams } from 'expo-router';
 import ChatList from './ChatList';
 
 const ChatView: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const { id: chatId } = useGlobalSearchParams();
-
   return (
     <XStack f={1}>
       <ChatList />
-      <View f={1} {...!chatId && { display: 'none' } }>
+      <View f={1}>
         {children}
       </View>
     </XStack>

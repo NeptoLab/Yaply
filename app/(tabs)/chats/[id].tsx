@@ -4,7 +4,6 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { YStack, XStack, Paragraph, Input, Button } from 'tamagui';
 import { Send } from '@tamagui/lucide-icons';
-import ChatView from 'components/ChatView';
 import useChat from 'hooks/useChat';
 import useSendMessage from 'hooks/useSendMessage';
 import { Message } from 'types/models';
@@ -78,7 +77,6 @@ const ChatScreen: React.FC = () => {
     };
 
     return (
-        <ChatView>
         <YStack flex={1}>
             <FlatList
                 onContentSizeChange={handleScrollToEnd}
@@ -106,7 +104,6 @@ const ChatScreen: React.FC = () => {
                 <Button onPress={handleSubmit(onSubmit)} icon={<Send size="$1" />} chromeless></Button>
             </XStack>
         </YStack>
-        </ChatView>
     );
 };
 
