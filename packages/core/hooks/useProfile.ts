@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import supabase from '@yaply/core/utils/supabase';
+import supabase from '../utils/supabase';
 
 const useProfile = (userId) => {
     const { data, isLoading, error } = useSWR(

@@ -5,6 +5,7 @@
     "@tamagui/babel-plugin": "^1.88.23",
     "@tamagui/config": "^1.88.23",
     "@tamagui/lucide-icons": "^1.88.23",
+    "@yaply/core": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "~2.0.4",
@@ -19,6 +20,5 @@
   "devDependencies": {
     "@babel/core": "^7.23.9",
     "@types/react": "~18.2.14"
-  },
-  "private": true
+  }
 }

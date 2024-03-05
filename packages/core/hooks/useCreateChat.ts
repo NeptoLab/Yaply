@@ -1,5 +1,5 @@
 import useSWRMutation from 'swr/mutation';
-import supabase from '@yaply/core/utils/supabase';
+import supabase from '../utils/supabase';
 
 const handleCreateChat = async (_, { arg: chat }) => {
     const { data, error } = await supabase

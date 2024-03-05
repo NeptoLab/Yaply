@@ -1,6 +1,6 @@
 import { User } from '@supabase/supabase-js';
 import useSWR from 'swr';
-import supabase from '@yaply/core/utils/supabase';
+import supabase from '../utils/supabase';
 
 const useUser = () => {
     const { data, isLoading, error } = useSWR('/api/user', async () => {

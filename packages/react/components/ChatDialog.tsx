@@ -4,8 +4,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { YStack, XStack, Paragraph, Input, Button } from 'tamagui';
 import { Send } from '@tamagui/lucide-icons';
 import useChat from '@yaply/core/hooks/useChat';
+import { Message } from '@yaply/core/types/models';
 import useSendMessage from '@yaply/core/hooks/useSendMessage';
-import { Message } from 'types/models';
 
 const ChatDialog: React.FC<{ chatId: string, onLoad?: (chat) => void }> = ({ chatId, onLoad }) => {
     const { handleSubmit, control, setValue } = useForm();
