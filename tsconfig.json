@@ -33,5 +33,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "components/ChatListContexttsx", "components/ChatListContexttsx", "metro.config.js"  ]
+, "packages/react/components/ChatListContexttsx", "packages/react/components/ChatListContexttsx", "metro.config.js"  ]
 }

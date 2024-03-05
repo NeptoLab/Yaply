@@ -1,5 +1,5 @@
 import React from 'react';
-import useContacts from 'hooks/useContacts';
+import useContacts from '@yaply/core/hooks/useContacts';
 import { FlatList } from 'react-native';
 import { ListItem, Avatar, Checkbox, Text } from 'tamagui';
 import { Check } from '@tamagui/lucide-icons';

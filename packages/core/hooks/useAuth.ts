@@ -1,4 +1,4 @@
-import supabase from 'utils/supabase';
+import supabase from '@yaply/core/utils/supabase';
 
 const useAuth = () => {
     return supabase.auth;

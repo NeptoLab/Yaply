@@ -2,6 +2,9 @@
   "name": "yaply",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "workspaces": [
+    "./packages/*"
+  ],
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -20,6 +23,8 @@
     "@tamagui/config": "^1.88.23",
     "@tamagui/lucide-icons": "^1.88.23",
     "@tamagui/metro-plugin": "^1.88.23",
+    "@yaply/react": "^1.0.0",
+    "@yaply/core": "^1.0.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-preset-expo": "^10.0.1",
     "expo": "50.0.2",

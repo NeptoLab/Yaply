@@ -1,4 +1,3 @@
-import ChatView from 'components/ChatView';
 import { Text, View } from 'tamagui';
 
 export default function ChatIndexScreen() {

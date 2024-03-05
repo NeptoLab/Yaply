@@ -1,5 +1,5 @@
 import useSWRMutation from 'swr/mutation';
-import supabase from 'utils/supabase';
+import supabase from '@yaply/core/utils/supabase';
 
 const handleUpdateProfile = async (_, { arg: profile }) => {
     const { data, error } = await supabase

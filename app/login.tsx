@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'expo-router';
 import { Button, Input, Stack, Text, ToggleGroup as Group, Form } from 'tamagui';
-import useAuth from 'hooks/useAuth';
+import useAuth from '@yaply/core/hooks/useAuth';
 
 const LoginScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm();

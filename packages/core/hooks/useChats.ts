@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import supabase from 'utils/supabase';
+import supabase from '@yaply/core/utils/supabase';
 
 const useChats = () => {
     const { data, isLoading, error, mutate } = useSWR(

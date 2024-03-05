@@ -1,12 +1,14 @@
 import React from 'react';
 import { XStack, View} from 'tamagui';
-import { useGlobalSearchParams } from 'expo-router';
 import ChatList from './ChatList';
 
-const ChatView: React.FC<React.PropsWithChildren> = ({ children }) => {
+const ChatView: React.FC<React.PropsWithChildren<{ id: string, onChange: (item) => void}>> = ({ children, id, onChange }) => {
   return (
     <XStack f={1}>
-      <ChatList />
+      <ChatList
+        chatId={id}
+        onChange={onChange}
+      />
       <View f={1}>
         {children}
       </View>

@@ -4,9 +4,9 @@ import { FlatList } from 'react-native';
 import { Check } from '@tamagui/lucide-icons'
 import { Input, Button, Form, Label, YStack, Text, Checkbox, ListItem, Avatar } from 'tamagui';
 import { useRouter } from 'expo-router';
-import useUser from 'hooks/useUser';
-import useCreateChat from 'hooks/useCreateChat';
-import AddMemberInput from 'components/AddMemberInput';
+import useUser from '@yaply/core/hooks/useUser';
+import useCreateChat from '@yaply/core/hooks/useCreateChat';
+import AddMemberInput from '@yaply/react/components/AddMemberInput';
 
 const CreateChat = () => {
   const { control, handleSubmit } = useForm();
