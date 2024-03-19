@@ -3,30 +3,16 @@ import { FlatList } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { YStack, XStack, Paragraph, Input, Button } from 'tamagui';
 import { Send } from '@tamagui/lucide-icons';
-import useChat from '@yaply/core/hooks/useChat';
-import { Message } from '@yaply/core/types/models';
-import useSendMessage from '@yaply/core/hooks/useSendMessage';
+import { Message } from '@yaply/types/models';
 
-const ChatDialog: React.FC<{ chatId: string, onLoad?: (chat) => void }> = ({ chatId, onLoad }) => {
+const ChatDialog: React.FC<{ chatId: string, messages: Message[], handleSendMessage: any }> = ({ messages, chatId, handleSendMessage }) => {
     const { handleSubmit, control, setValue } = useForm();
-    const { chat } = useChat(chatId, {
-        onMessage: (message) => setMessages((prevMessages) => [...prevMessages, message]),
-    });
-    const [ messages, setMessages ] = useState<Message[]>([]);
-    const { trigger: handleSendMessage } = useSendMessage(chatId);
     const chatRef = React.useRef<FlatList>(null);
     const inputRef = React.useRef<Input>(null);
 
     const handleScrollToEnd = () => {
         chatRef.current?.scrollToEnd();
     };
-
-    useEffect(() => {
-        if (chat) {
-            onLoad && onLoad(chat);
-            setMessages(chat.messages);
-        }
-    }, [chat]);
 
     // const handleScroll = (event) => {
     //     const y = event.nativeEvent.contentOffset.y;

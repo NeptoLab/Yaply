@@ -1,13 +1,12 @@
 import useSWR from 'swr';
-import supabase from '../utils/supabase';
+import supabase from '@yaply/core/supabase';
 
-const useChats = () => {
+const useContacts = () => {
     const { data, isLoading, error, mutate } = useSWR(
-        '/api/chats',
+        '/api/contacts',
         async () => {
-            const { data, error } = await supabase
-                .from('chats')
-                .select('*, members!inner(*)');
+            const { data, error } = await supabase.from('contacts')
+                .select('*, profile:profiles!contacts_contact_user_id_fkey(*)');
 
             if (error) {
                 throw error;
@@ -18,11 +17,11 @@ const useChats = () => {
     );
 
     return {
-        chats: data,
+        contacts: data,
         isLoading,
         error,
         refetch: mutate,
     };
 };
 
-export default useChats;
+export default useContacts;

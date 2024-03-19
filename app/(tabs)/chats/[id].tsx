@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ChatDialog from '@yaply/react/components/ChatDialog';
+import ChatDialog from '@yaply/app/components/ChatDialog';
 import { useGlobalSearchParams, useNavigation } from 'expo-router';
 
 const ChatScreen: React.FC = () => {

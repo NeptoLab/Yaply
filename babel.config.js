@@ -11,17 +11,6 @@ module.exports = function (api) {
           logTimings: true,
           disableExtraction: process.env.NODE_ENV === 'development'
         },
-      ],
-      [
-        'module-resolver',
-        {
-          root: ['./'],
-          alias: {
-            'utils': './utils',
-            'components': './components',
-            'hooks': './hooks',
-          },
-        },
       ]
     ],
   };

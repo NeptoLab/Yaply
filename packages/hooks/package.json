@@ -1,0 +1,8 @@
+{
+  "name": "@yaply/hooks",
+  "version": "1.0.0",
+  "dependencies": {
+    "@yaply/core": "^1.0.0",
+    "swr": "^2.2.5"
+  }
+}

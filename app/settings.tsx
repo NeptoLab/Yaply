@@ -1,10 +1,10 @@
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'expo-router';
 import { Button, Input, Text, Avatar, Label, Form, YStack } from 'tamagui';
-import useUser from '@yaply/core/hooks/useUser';
+import useUser from '@yaply/hooks/useUser';
 import { useEffect } from 'react';
-import useProfile from '@yaply/core/hooks/useProfile';
-import useUpdateProfile from '@yaply/core/hooks/useUpdateProfile';
+import useProfile from '@yaply/hooks/useProfile';
+import useUpdateProfile from '@yaply/hooks/useUpdateProfile';
 
 const SettingsScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm();

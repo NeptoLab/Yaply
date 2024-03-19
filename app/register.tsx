@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'expo-router';
 import { Button, Input, Stack, Text, ToggleGroup as Group, Label, Form, YStack } from 'tamagui';
-import useAuth from '@yaply/core/hooks/useAuth';
+import useAuth from '@yaply/hooks/useAuth';
 
 const RegisterScreen = () => {
     const { control, handleSubmit, formState: { errors }, watch } = useForm();

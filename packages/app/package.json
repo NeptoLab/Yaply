@@ -1,11 +1,10 @@
 {
-  "name": "@yaply/react",
+  "name": "@yaply/app",
   "version": "1.0.0",
   "dependencies": {
     "@tamagui/babel-plugin": "^1.91.3",
     "@tamagui/config": "^1.91.3",
     "@tamagui/lucide-icons": "^1.91.3",
-    "@yaply/types": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "~2.0.4",

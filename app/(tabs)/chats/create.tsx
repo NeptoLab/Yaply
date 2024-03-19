@@ -4,8 +4,8 @@ import { FlatList } from 'react-native';
 import { Check } from '@tamagui/lucide-icons'
 import { Input, Button, Form, Label, YStack, Text, Checkbox, ListItem, Avatar } from 'tamagui';
 import { useRouter } from 'expo-router';
-import useUser from '@yaply/core/hooks/useUser';
-import useCreateChat from '@yaply/core/hooks/useCreateChat';
+import useUser from '@yaply/hooks/useUser';
+import useCreateChat from '@yaply/hooks/useCreateChat';
 import AddMemberInput from '@yaply/react/components/AddMemberInput';
 
 const CreateChat = () => {

@@ -1,5 +1,5 @@
 import { Stack, useGlobalSearchParams, useRouter } from 'expo-router';
-import ChatView from '@yaply/react/components/ChatView';
+import ChatView from '@yaply/app/components/ChatView';
 import { UserPlus } from '@tamagui/lucide-icons';
 import { Button } from 'tamagui';
 import AddMemberDialog from '@yaply/react/components/AddMemberDialog';

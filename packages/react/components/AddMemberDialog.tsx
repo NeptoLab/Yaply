@@ -3,7 +3,7 @@ import AddMemberInput from './AddMemberInput';
 import { Controller, useForm } from 'react-hook-form';
 import { X } from '@tamagui/lucide-icons';
 
-const AddMemberDialog = ({ children }) => {
+const AddMemberDialog = ({ contacts, children }) => {
   const { control } = useForm();
 
   return (
@@ -57,7 +57,7 @@ const AddMemberDialog = ({ children }) => {
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
-              <AddMemberInput onChange={onChange} onBlur={onBlur} value={value} />
+              <AddMemberInput contacts={contacts} onChange={onChange} onBlur={onBlur} value={value} />
             )}
             name="members"
             defaultValue={[]}
