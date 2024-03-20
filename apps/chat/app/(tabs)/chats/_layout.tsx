@@ -2,7 +2,7 @@ import { Stack, useGlobalSearchParams, useRouter } from 'expo-router';
 import ChatView from '@yaply/app/components/ChatView';
 import { UserPlus } from '@tamagui/lucide-icons';
 import { Button } from 'tamagui';
-import AddMemberDialog from '@yaply/react/components/AddMemberDialog';
+import AddMemberDialog from '@yaply/app/components/AddMemberDialog';
 
 const ChatLayout = () => {
   const { id } = useGlobalSearchParams();

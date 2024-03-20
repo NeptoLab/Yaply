@@ -6,7 +6,7 @@ import { Input, Button, Form, Label, YStack, Text, Checkbox, ListItem, Avatar } 
 import { useRouter } from 'expo-router';
 import useUser from '@yaply/hooks/useUser';
 import useCreateChat from '@yaply/hooks/useCreateChat';
-import AddMemberInput from '@yaply/react/components/AddMemberInput';
+import AddMemberInput from '@yaply/app/components/AddMemberInput';
 
 const CreateChat = () => {
   const { control, handleSubmit } = useForm();

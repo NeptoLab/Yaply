@@ -14,7 +14,7 @@ const AddMemberInput = ({ contacts, value, onBlur, onChange }) => {
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => {
         const isSelected = !!value.find((v) => v.id === item.id);
-        return <ListItem gap="$4" p="$4">
+        return <ListItem gap="$4" padding="$4">
           <Checkbox 
             onCheckedChange={() => onChange(!isSelected ? [item, ...value] : value.filter((v) => v.id !== item.id))}
             onBlur={onBlur}
@@ -31,7 +31,7 @@ const AddMemberInput = ({ contacts, value, onBlur, onChange }) => {
             />}
             <Avatar.Fallback backgroundColor="$blue10" />
           </Avatar>
-          <Text f={1}>{item.profile?.name || ''}</Text>
+          <Text flex={1}>{item.profile?.name || ''}</Text>
         </ListItem>
       }}
     />
