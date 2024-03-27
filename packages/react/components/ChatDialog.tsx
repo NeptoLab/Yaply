@@ -5,7 +5,7 @@ import { YStack, XStack, Paragraph, Input, Button } from 'tamagui';
 import { Send } from '@tamagui/lucide-icons';
 import { Message } from '@yaply/types/models';
 
-const ChatDialog: React.FC<{ chatId: string, messages: Message[], handleSendMessage: any }> = ({ messages, chatId, handleSendMessage }) => {
+const ChatDialog: React.FC<{ chatId?: string, messages?: Message[], handleSendMessage?: any }> = ({ messages = [], chatId = null, handleSendMessage }) => {
     const { handleSubmit, control, setValue } = useForm();
     const chatRef = React.useRef<FlatList>(null);
     const inputRef = React.useRef<Input>(null);
