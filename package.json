@@ -5,5 +5,8 @@
     "./packages/*",
     "./apps/**"
   ],
-  "private": true
+  "private": true,
+  "dependencies": {
+    "react-native-svg": "^15.1.0"
+  }
 }

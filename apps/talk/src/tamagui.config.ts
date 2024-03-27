@@ -1,30 +1,16 @@
-import { createTamagui } from '@tamagui/core'
-import { shorthands } from '@tamagui/shorthands'
+import { config } from '@tamagui/config/v3'
+import { Text, View } from 'react-native'
+import { createTamagui } from 'tamagui' // or '@tamagui/core'
 
-import { animations } from './animations'
-import { fonts } from './fonts'
-import { media } from './media'
-import { themes } from './themes'
-import { tokens } from './tokens'
+const appConfig = createTamagui(config)
 
-const config = createTamagui({
-  defaultFont: 'body',
-  animations,
-  shouldAddPrefersColorThemes: true,
-  themeClassNameOnRoot: true,
-  shorthands,
-  fonts,
-  themes,
-  tokens,
-  media,
-})
-
-type AppConfig = typeof config
+export type AppConfig = typeof appConfig
 
 declare module 'tamagui' {
-  // overrides TamaguiCustomConfig so that custom types
-  // work everywhere `tamagui` is imported
+  // or '@tamagui/core'
+  // overrides TamaguiCustomConfig so your custom types
+  // work everywhere you import `tamagui`
   interface TamaguiCustomConfig extends AppConfig {}
 }
 
-export default config
+export default appConfig
