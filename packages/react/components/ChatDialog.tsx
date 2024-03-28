@@ -5,7 +5,7 @@ import { YStack, XStack, Paragraph, Input, Button } from 'tamagui';
 import { Send } from '@tamagui/lucide-icons';
 import { Message } from '@yaply/types/models';
 
-const ChatDialog: React.FC<{ chatId?: string, messages?: Message[], handleSendMessage?: any }> = ({ messages = [], chatId = null, handleSendMessage }) => {
+const ChatDialog: React.FC<{ chatId?: string, userId?: string, messages?: Message[], handleSendMessage?: any }> = ({ messages = [], userId = null, chatId = null, handleSendMessage }) => {
     const { handleSubmit, control, setValue } = useForm();
     const chatRef = React.useRef<FlatList>(null);
     const inputRef = React.useRef<Input>(null);
@@ -39,21 +39,22 @@ const ChatDialog: React.FC<{ chatId?: string, messages?: Message[], handleSendMe
 
     const renderItem = ({ item }) => (
         <Paragraph
-            backgroundColor="$gray4"
+            backgroundColor={item.user_id === userId ? '$blue10' : '$gray4'}
             br="$2"
-            m="$2"
+            m="$4"
             p="$2"
-            alignSelf="flex-start"
+            alignSelf={item.user_id === userId ? 'flex-end' : 'flex-start'}
             display="flex"
             flexDirection="column"
+            color={item.user_id === userId ? 'white' : '$text'}
         >
             {item.text}
         </Paragraph>
     );
 
     const onSubmit = async (data) => {
-        await handleSendMessage({ text: data.message, chat_id: chatId });
         setValue('message', '');
+        await handleSendMessage({ text: data.message, chat_id: chatId });
         inputRef.current?.focus();
     };
 

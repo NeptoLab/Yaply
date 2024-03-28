@@ -19,6 +19,7 @@
     "@tamagui/react-native-svg": "^1.93.2",
     "@vitejs/plugin-react": "^4.2.1",
     "@yaply/react": "^1.0.0",
+    "openai": "^4.29.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-native-web": "^0.19.10",
